@@ -1,16 +1,29 @@
-const Statistics = ({ title, stats }) => (
-  <section className="statistics">
-    <h2 className="title">{title}</h2>
+import styles from './Statistics.module.css';
+import PropTypes from 'prop-types';
+import randColor from './randColor';
 
-    <ul className="stat-list">
+const Statistics = ({ title, stats }) => (
+  <section className={styles.statistics}>
+    {title && <h2 className={styles.title}>{title}</h2>}
+
+    <ul className={styles.list}>
       {stats.map(({ id, label, percentage }) => (
-        <li className="item" key={id}>
-          <span className="label">{label}</span>
-          <span className="percentage">{percentage}%</span>
+        <li
+          className={styles.item}
+          key={id}
+          style={{ backgroundColor: randColor() }}
+        >
+          <span className={styles.label}>{label}</span>
+          <span className={styles.percentage}>{percentage}%</span>
         </li>
       ))}
     </ul>
   </section>
 );
+
+Statistics.propTypes = {
+  title: PropTypes.string,
+  stats: PropTypes.array.isRequired,
+};
 
 export default Statistics;
